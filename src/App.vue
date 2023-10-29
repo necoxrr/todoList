@@ -12,6 +12,9 @@ function addNewTodo() {
   newTodo.value = ''
 
 }
+function deleteTodo(index) {
+  todos.value.splice(index, 1)
+}
 // 完成待办事项后删除
 // function finish() {
 //   todos.value.splice()
@@ -23,11 +26,10 @@ function addNewTodo() {
   <br />
   <ul class="todolist">
     <!-- 为什么在li中加（index,todo） in todos,{{ todo.titie }}中的文字显示不出来？？？ -->
-    <li v-for="   todo in todos" :key="todo.id"><input type="checkbox" @click="todos.splice(index, 1)"
-        style="width: 40px;height: 20px;" />{{ todo.title }}
+    <li v-for="  (index, todo) in todos" :key="todo.id"><input type="checkbox" @click="deleteTodo(index)"
+        style="width: 40px;height: 20px;" /><span>{{ todo.title }}</span>
     </li>
   </ul>
- 
 </template>
 <style>
 .todolist {
