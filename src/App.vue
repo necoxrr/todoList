@@ -27,6 +27,7 @@ function addNewTodo() {
         style="width: 40px;height: 20px;" />{{ todo.title }}
     </li>
   </ul>
+ 
 </template>
 <style>
 .todolist {
