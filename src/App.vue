@@ -1,9 +1,18 @@
 <script setup>
+import edit from './components/EditComponent.vue'
+import { createApp } from 'vue'
 import { ref } from 'vue';
 const newTodo = ref('')
 const todos = ref([])
 const finishTodo = ref([])
-const visible = false
+// 全局添加组件
+const app = createApp({})
+app.component(
+  'edit'
+)
+// 弹框显示
+const show = ref(false)
+
 
 // 添加新的事项的事件
 let next = 4
@@ -23,22 +32,11 @@ function deleteTodo(todo) {
     id: next++,
     title1: todo.title
   })
-
 }
-
-// 编辑代办事项
-// 这一处有一个问题--就是直接在函数里改变visible的值是不可以的，现在所可以想的是直接用watch来监听visble
-function edittodo() {
-
-
-
-
-
-
-  // 弹出修改框
-
+// 弹框的产生
+function editTitle() {
+  show.value = true;
 }
-
 </script>
 <template>
   <div class="todo">
@@ -49,9 +47,8 @@ function edittodo() {
       <button @click="addNewTodo">添加</button>
       <br />
       <ul class="todolist">
-        <!-- 为什么在li中加（index,todo） in todos,{{ todo.titie }}中的文字显示不出来？？？ -->
         <li v-for="   todo in todos" :key="todo.id"><input type="checkbox" @click="deleteTodo(todo)"
-            style="width: 40px;height: 20px;" /><span>{{ todo.title }}</span><button @click="edittodo()">编辑</button>
+            style="width: 40px;height: 20px;" /><span>{{ todo.title }}</span><button @click='editTitle'>编辑</button>
         </li>
       </ul>
     </div>
@@ -65,10 +62,8 @@ function edittodo() {
       </ul>
     </div>
 
-    <!-- 弹出的修改事项框 -->
-    <div style="width: 100px;height: 100px;background-color: bisque;" v-show="visible == true">
-
-    </div>
+    <!-- 编辑框 -->
+    <edit v-model:show="show" />
   </div>
 </template>
 <style>
