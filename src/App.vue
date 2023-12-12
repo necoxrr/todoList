@@ -12,8 +12,6 @@ app.component(
 )
 // 弹框显示
 const show = ref(false)
-
-
 // 添加新的事项的事件
 let next = 4
 function addNewTodo() {
@@ -22,7 +20,6 @@ function addNewTodo() {
     title: newTodo.value
   })
   newTodo.value = ''
-
 }
 
 // 代办事件的完成
@@ -33,11 +30,21 @@ function deleteTodo(todo) {
     title1: todo.title
   })
 }
+// 已经完成事情的删除
+function deleteFinish(finishdo) {
+  finishTodo.value.splice(finishdo, 1)
+
+}
 // 弹框的产生
 function editTitle() {
-  show.value = true;
+  show.value = true
+}
+function real(val) {
+  console.log(val)
+
 }
 </script>
+
 <template>
   <div class="todo">
 
@@ -48,7 +55,7 @@ function editTitle() {
       <br />
       <ul class="todolist">
         <li v-for="   todo in todos" :key="todo.id"><input type="checkbox" @click="deleteTodo(todo)"
-            style="width: 40px;height: 20px;" /><span>{{ todo.title }}</span><button @click='editTitle'>编辑</button>
+            style="width: 40px;height: 20px;" /><span>{{ todo.title }}</span><button @click="editTitle">编辑</button>
         </li>
       </ul>
     </div>
@@ -58,15 +65,18 @@ function editTitle() {
       <span
         style="width: 50px;height: 20px; background-color: cadetblue;font-family:'Times New Roman', Times, serif;">已完成</span>
       <ul class="todolist">
-        <li v-for="finishdo in finishTodo" :key="finishdo.id" class="finishid"><span>{{ finishdo.title1 }}</span></li>
+        <li v-for="finishdo in finishTodo" :key="finishdo.id" class="finishid"><span>{{ finishdo.title1 }}</span>
+          <button @click="deleteFinish(finishdo)">删除</button>
+        </li>
       </ul>
     </div>
 
     <!-- 编辑框 -->
-    <edit v-model:show="show" />
+    <edit class="dump" v-model:show="show" @out="out"></edit>
+
   </div>
 </template>
-<style>
+<style scoped>
 /* 去标签黑点的样式 */
 .todolist {
   list-style-type: none;
@@ -89,5 +99,16 @@ function editTitle() {
 /* 完成事项的设计 */
 .finishid {
   background-color: gray;
+}
+
+/* 弹出编辑框的样式 */
+.dump {
+  position: fixed;
+  z-index: 999;
+  top: 20%;
+  left: 60%;
+  width: 300px;
+  height: 700px;
+
 }
 </style>
