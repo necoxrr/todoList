@@ -11,7 +11,7 @@ app.component(
   'edit'
 )
 // 弹框显示
-const show = ref(false)
+// const show = ref(false)
 // 添加新的事项的事件
 let next = 4
 function addNewTodo() {
@@ -36,9 +36,9 @@ function deleteFinish(finishdo) {
 
 }
 // 弹框的产生
-function editTitle() {
-  show.value = true
-}
+// function editTitle() {
+//   show.value = true
+// }
 
 </script>
 
@@ -68,7 +68,7 @@ function editTitle() {
       </ul>
     </div>
 
-    <!-- 编辑框 -->
+    <!-- 编辑所出现的弹框-->
     <edit class="dump" v-model:show="show"></edit>
   </div>
 </template>

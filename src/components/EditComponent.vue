@@ -1,10 +1,10 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps } from 'vue';
 defineProps(['show'])
-const emit = defineEmits({
-  show.value = false
+// const emit = defineEmits({
+//   show.value = false
 
-})
+// })
 
 
 </script>
