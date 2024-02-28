@@ -2,14 +2,10 @@
 import { defineProps, defineEmits } from 'vue';
 defineProps(['show'])
 const emit = defineEmits({
-  out1: ({ show }) => {
-    show.value = false
-  }
-})
-function out() {
-  emit('out1', { show })
+  show.value = false
 
-}
+})
+
 
 </script>
  <!-- 弹出的修改事项框 -->

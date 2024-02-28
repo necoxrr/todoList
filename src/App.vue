@@ -39,10 +39,7 @@ function deleteFinish(finishdo) {
 function editTitle() {
   show.value = true
 }
-function real(val) {
-  console.log(val)
 
-}
 </script>
 
 <template>
@@ -72,10 +69,10 @@ function real(val) {
     </div>
 
     <!-- 编辑框 -->
-    <edit class="dump" v-model:show="show" @out="out"></edit>
-
+    <edit class="dump" v-model:show="show"></edit>
   </div>
 </template>
+<!-- 样式 -->
 <style scoped>
 /* 去标签黑点的样式 */
 .todolist {
