@@ -1,17 +1,15 @@
 <script setup>
-import edit from './components/EditComponent.vue'
-import { createApp } from 'vue'
+// import edit from './components/EditComponent.vue'
+// import { createApp } from 'vue'
 import { ref } from 'vue';
 const newTodo = ref('')
 const todos = ref([])
 const finishTodo = ref([])
 // 全局添加组件
-const app = createApp({})
-app.component(
-  'edit'
-)
-// 弹框显示
-// const show = ref(false)
+// const app = createApp({})
+// app.component(
+//   'edit'
+// )
 // 添加新的事项的事件
 let next = 4
 function addNewTodo() {
@@ -36,9 +34,14 @@ function deleteFinish(finishdo) {
 
 }
 // 弹框的产生
-// function editTitle() {
-//   show.value = true
-// }
+const dialogVisible = ref(false)
+const editTitle = () => {
+  dialogVisible.value = true
+}
+const closeDialog = () => {
+  // eslint-disable-next-line no-const-assign
+  dialogVisible.value = false
+}
 
 </script>
 
@@ -51,11 +54,26 @@ function deleteFinish(finishdo) {
       <button @click="addNewTodo">添加</button>
       <br />
       <ul class="todolist">
-        <li v-for="   todo in todos" :key="todo.id"><input type="checkbox" @click="deleteTodo(todo)"
-            style="width: 40px;height: 20px;" /><span>{{ todo.title }}</span><button @click="editTitle">编辑</button>
+        <li v-for="   todo in todos" :key="todo.id">
+          <input type="checkbox" @click="deleteTodo(todo)" style="width: 40px;height: 20px;" />
+          <span>{{ todo.title }}</span>
+          <button @click="editTitle">编辑</button>
         </li>
       </ul>
     </div>
+    <!-- 弹出修改代办事项的弹出框 -->
+    <!-- <edit ref="refDialog"></edit> -->
+    <!-- 编辑所出现的弹框-->
+    <el-dialog title="事项" v-model:visible="dialogVisible" center append-to-body>
+      <el-form>
+        <el-form-item label="代办事项：">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+      <template v-slot:footer>
+        <el-button @click="closeDialog">确认</el-button>
+      </template>
+    </el-dialog>
 
     <!-- 已经完成的区域 -->
     <div class="finish">
@@ -67,9 +85,6 @@ function deleteFinish(finishdo) {
         </li>
       </ul>
     </div>
-
-    <!-- 编辑所出现的弹框-->
-    <edit class="dump" v-model:show="show"></edit>
   </div>
 </template>
 <!-- 样式 -->
