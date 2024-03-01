@@ -64,7 +64,7 @@ const closeDialog = () => {
     <!-- 弹出修改代办事项的弹出框 -->
     <!-- <edit ref="refDialog"></edit> -->
     <!-- 编辑所出现的弹框-->
-    <el-dialog title="事项" v-model:visible="dialogVisible" center append-to-body>
+    <el-dialog title="事项" v-model="dialogVisible" center append-to-body>
       <el-form>
         <el-form-item label="代办事项：">
           <el-input></el-input>
