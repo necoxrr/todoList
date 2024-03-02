@@ -34,9 +34,10 @@ function deleteFinish(finishdo) {
 
 }
 // 弹框的产生
-const dialogVisible = ref(false)
-const editTitle = () => {
-  dialogVisible.value = true
+const show = ref(null)
+const editTitle = (id) => {
+  show.value.open();
+
 }
 
 </script>
@@ -53,12 +54,12 @@ const editTitle = () => {
         <li v-for="   todo in todos" :key="todo.id">
           <input type="checkbox" @click="deleteTodo(todo)" style="width: 40px;height: 20px;" />
           <span>{{ todo.title }}</span>
-          <button @click="editTitle">编辑</button>
+          <button @click="editTitle(todo.id)">编辑</button>
         </li>
       </ul>
     </div>
     <!-- 弹出编辑框 -->
-    <edit :visiblel="dialogVisible" @close="dialogVisible"></edit>
+    <edit ref="show"></edit>
 
     <!-- 已经完成的区域 -->
     <div class="finish">
