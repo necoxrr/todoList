@@ -37,11 +37,12 @@ function deleteFinish(finishdo) {
 const show = ref(null);
 const editTodo = ref({});
 const editTitle = (id) => {
-  show.value.open();
-  todos.value.find((todo) => todo.id == id); // 使用 todo 变量并赋值
-  // console.log(todo);
-  editTodo.value = todos;
-
+  const new1 = todos.value.find((todo) => todo.id === id); // 使用 todo 变量并赋值
+  console.log(new1)
+  if (new1) {
+    editTodo.value = new1;
+    show.value.open();
+  }
 }
 // 弹框内容传值
 //父组件传到子组件中的值
@@ -66,10 +67,11 @@ const editTitle = (id) => {
 // }
 
 //子组件传给父组件的值
-const setBackTodo = (todo) => {
-  const idx = todos.value.findIndex((todo) => todo.id === todo.id);
-  todos.value.splice(idx, 1, todo);
+const setBackTodo = (secondTodo) => {
+  const idx = secondTodo.value.findIndex((todo) => todo.id === secondTodo.id);
+  todos.value.splice(idx, 1, secondTodo);
 }
+
 </script>
 
 <template>
@@ -84,7 +86,7 @@ const setBackTodo = (todo) => {
         <li v-for="   todo in todos" :key="todo.id">
           <input type="checkbox" @click="deleteTodo(todo)" style="width: 40px;height: 20px;" />
           <span>{{ todo.title }}</span>
-          <button @click="editTitle(todo.id);">编辑</button>
+          <button @click="editTitle(todo.id)">编辑</button>
         </li>
       </ul>
     </div>
