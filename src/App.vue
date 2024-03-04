@@ -34,12 +34,44 @@ function deleteFinish(finishdo) {
 
 }
 // 弹框的产生
-const show = ref(null)
-const editTitle = (id) => {
+const show = ref(null);
+const editTodo = ref({});
+const editTitle = () => {
   show.value.open();
+}
+// 弹框内容传值
+//父组件传到子组件中的值
+const editRong = (id) => {
+  // let todo = [];
+  // if (Array.isArray(todo.value) && todo.value.length > 0) {
+  //   const foundTodo = todo.value.find((todo) => todo.id == id);
+  //   if (foundTodo) {
+  //     editTodo.value = foundTodo;
+  //   }
+  // }
+  // 声明并初始化 todo 变量
+  try {
+
+    //Place your code inside this try, catch block
+    //Any error can now be caught and managed
+    var todo = todo.value.find((todo) => todo.id == id); // 使用 todo 变量并赋值
+    console.log(todo);
+    if (todo) {
+      editTodo.value = todo;
+    }
+  } catch (e) {
+
+    console.log("Something went wrong", e);
+  }
+
 
 }
 
+//子组件传给父组件的值
+const setBackTodo = (todo) => {
+  const idx = todos.value.findIndex((todo) => todo.id === todo.id);
+  todos.value.splice(idx, 1, todo);
+}
 </script>
 
 <template>
@@ -54,12 +86,12 @@ const editTitle = (id) => {
         <li v-for="   todo in todos" :key="todo.id">
           <input type="checkbox" @click="deleteTodo(todo)" style="width: 40px;height: 20px;" />
           <span>{{ todo.title }}</span>
-          <button @click="editTitle(todo.id)">编辑</button>
+          <button @click="editTitle(); editRong(todo.id)">编辑</button>
         </li>
       </ul>
     </div>
     <!-- 弹出编辑框 -->
-    <edit ref="show"></edit>
+    <edit ref="show" :edit-todo="editTodo" :setBack="setBackTodo"></edit>
 
     <!-- 已经完成的区域 -->
     <div class="finish">
@@ -74,6 +106,7 @@ const editTitle = (id) => {
   </div>
 </template>
 <!-- 样式 -->
+
 <style scoped>
 /* 去标签黑点的样式 */
 .todolist {

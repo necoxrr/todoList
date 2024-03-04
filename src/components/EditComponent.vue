@@ -1,13 +1,12 @@
 <script setup>
-import { ref, defineExpose, reactive } from 'vue';
+import { defineProps, ref, defineExpose, reactive, watch } from 'vue';
 const visible = ref(false)
+const props = defineProps(['editTodo', 'setBack']);
 const open = () => {
   visible.value = true
 }
-
 defineExpose({
   open,
-  changeTitle
 })
 const change = () => {
   visible.value = false
@@ -15,10 +14,19 @@ const change = () => {
 const todoForm = reactive({
   new: '',
 })
-const changeTitle = (row) => {
+watch(() => props.editTodo, (newValue) => {
+  todoForm.new.value = newValue.title;
+});
+console.log('help', props);
+const submit = () => {
+  props.setBack({
+    ...props.editTodo,
+    title: todoForm.new.value,
+  });
+};
 
-}
 </script>
+
 <template>
   <!-- 编辑所出现的弹框-->
 
@@ -29,8 +37,8 @@ const changeTitle = (row) => {
       </el-form-item>
     </el-form>
     <template v-slot:footer>
-      <el-button @click="change">确认</el-button>
+      <el-button @click="change">取消</el-button>
+      <el-button @click="submit">提交</el-button>
     </template>
   </el-dialog>
 </template>
-
